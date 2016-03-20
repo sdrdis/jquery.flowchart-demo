@@ -1,0 +1,13 @@
+.flowchart-example-container {
+  height: 200px;
+  border: 1px solid #BBB;
+  margin-bottom: 10px;
+}
+
+.flowchart-operator-connector-arrow {
+  top: 4px;
+}
+
+.flowchart-example pre {
+  display: none;
+}
