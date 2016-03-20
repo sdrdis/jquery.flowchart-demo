@@ -1,3 +1,9 @@
 [submodule "jquery.flowchart"]
 	path = jquery.flowchart
 	url = git@github.com:sdrdis/jquery.flowchart.git
+[submodule "jquery-mousewheel"]
+	path = jquery-mousewheel
+	url = git@github.com:jquery/jquery-mousewheel.git
+[submodule "jquery.panzoom"]
+	path = jquery.panzoom
+	url = git@github.com:timmywil/jquery.panzoom.git
