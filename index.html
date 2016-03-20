@@ -53,15 +53,73 @@ Here are the main functionalities provided so far:
   <li>Some methods allow you to add advanced functionalities, such as a panzoom view or adding operators using drag and drop. Take a look at the advanced demo</li>
 </ul>
           
+
+<p>The complete API doc can be found <a href="https://github.com/sdrdis/jquery.flowchart#readme" target="_blank">in the README</a>.</p>
+          
 <p>jquery.flowchart is under <a href="https://github.com/sdrdis/jquery.flowchart/blob/master/MIT-LICENSE.txt" target="_blank">MIT license</a></p>
 
 <p>It has been created by <a href="http://sebastien.drouyer.com" target="_blank">Sébastien Drouyer</a>, alias <a href="https://twitter.com/sdrdis" target="_blank">@sdrdis</a></p>
           
+
 <h3>
 <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
 
+          
+          
+          
+          
+
 <div class="flowchart-example">
   <h4>Basic operator</h4>
+  <div class="flowchart-example-container" id="example_1"></div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              }
+            },
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              },
+              output_2: {
+                label: 'Output 2',
+              },
+              output_3: {
+                label: 'Output 3',
+              }
+            }
+          }
+        }
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    $('#example_1').flowchart({
+      data: data
+    });
+  });
+</script>
+  <p class="flowchart-example-description">This is a basic operator with two input connectors and three output connector. You can move the operator by dragging it from its title.</p>
+</div>
+          
+          
+          
+          
+          
+<div class="flowchart-example">
+  <h4>Two operators</h4>
   <div class="flowchart-example-container" id="example_1"></div>
 <script type="text/javascript">
   $(document).ready(function() {
