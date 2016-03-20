@@ -8,6 +8,10 @@
   top: 4px;
 }
 
+.flowchart-operator-connector-small-arrow {
+  top: 9px;
+}
+
 .flowchart-example pre {
   display: none;
 }

@@ -15,7 +15,7 @@
     <script src="jquery.panzoom/dist/jquery.panzoom.min.js"></script>
     <script src="jquery-mousewheel/jquery.mousewheel.min.js"></script>
     
-    <script src="jquery.flowchart/jquery.flowchart.min.js"></script>
+    <script src="jquery.flowchart/jquery.flowchart.js"></script>
     <script src="javascripts/main.js"></script>
     <link rel="stylesheet" href="jquery.flowchart/jquery.flowchart.min.css">
     <link rel="stylesheet" href="stylesheets/custom.css">
@@ -120,47 +120,112 @@ Here are the main functionalities provided so far:
           
 <div class="flowchart-example">
   <h4>Two operators</h4>
-  <div class="flowchart-example-container" id="example_1"></div>
+  <div class="flowchart-example-container" id="example_2"></div>
 <script type="text/javascript">
   $(document).ready(function() {
     var data = {
       operators: {
-        operator: {
+        operator1: {
           top: 20,
           left: 20,
           properties: {
-            title: 'Operator',
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 80,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
             inputs: {
               input_1: {
                 label: 'Input 1',
               },
               input_2: {
                 label: 'Input 2',
-              }
+              },
             },
-            outputs: {
-              output_1: {
-                label: 'Output 1',
-              },
-              output_2: {
-                label: 'Output 2',
-              },
-              output_3: {
-                label: 'Output 3',
-              }
-            }
+            outputs: {}
           }
-        }
+        },
       }
     };
 
     // Apply the plugin on a standard, empty div...
-    $('#example_1').flowchart({
+    $('#example_2').flowchart({
       data: data
     });
   });
 </script>
-  <p class="flowchart-example-description">This is a basic operator with two input connectors and three output connector. You can move the operator by dragging it from its title.</p>
+  <p class="flowchart-example-description">Now, there is two operators. With the user interface, you can add a link between the two by clicking on the "Output 1" connector and then clicking to a input connector. You can do it again and connect the output connector to another input connector. Since the <code>multipleLinksOnOutput</code> option is set to <code>false</code>, the previous link is destroyed. You can still drag the operators when they are linked...</p>
+</div>
+          
+          
+          
+          
+          
+          
+          
+<div class="flowchart-example">
+  <h4>Create flow chart with link</h4>
+  <div class="flowchart-example-container" id="example_3"></div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 20,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+        },
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    $('#example_3').flowchart({
+      data: data
+    });
+  });
+</script>
+  <p class="flowchart-example-description">Here, a link has been added during the initialization. You can still remove it if you create a link from "Output 1" using the interface.</p>
 </div>
 
 </section>
