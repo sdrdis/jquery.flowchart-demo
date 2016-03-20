@@ -1,0 +1,3 @@
+[submodule "jquery.flowchart"]
+	path = jquery.flowchart
+	url = git@github.com:sdrdis/jquery.flowchart.git
