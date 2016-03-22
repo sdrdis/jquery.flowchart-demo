@@ -173,7 +173,7 @@ Here are the main functionalities provided so far:
           
           
 <div class="flowchart-example">
-  <h4>Create flow chart with link</h4>
+  <h4>Create flow chart with a link</h4>
   <div class="flowchart-example-container" id="example_3"></div>
 <script type="text/javascript">
   $(document).ready(function() {
@@ -193,7 +193,7 @@ Here are the main functionalities provided so far:
           }
         },
         operator2: {
-          top: 20,
+          top: 80,
           left: 300,
           properties: {
             title: 'Operator 2',
@@ -226,6 +226,305 @@ Here are the main functionalities provided so far:
   });
 </script>
   <p class="flowchart-example-description">Here, a link has been added during the initialization. You can still remove it if you create a link from "Output 1" using the interface.</p>
+</div>
+          
+          
+          
+          
+          
+          
+          
+<div class="flowchart-example">
+  <h4>Read-only flow chart</h4>
+  <div class="flowchart-example-container" id="example_4"></div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 80,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+        },
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    $('#example_4').flowchart({
+      data: data,
+      canUserEditLinks: false,
+      canUserMoveOperators: false
+    });
+  });
+</script>
+  <p class="flowchart-example-description">Here, <code>canUserEditLinks</code> and <code>canUserMoveOperators</code> have both been set to <code>false</code> making the chart read-only and preventing operators to move.</p>
+</div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+<div class="flowchart-example">
+  <h4>Dynamically add operators and delete operators / links</h4>
+  <div class="flowchart-example-container" id="example_5"></div>
+  <button id="create_operator">Create operator</button>
+  <button id="delete_selected_button">Delete selected operator / link</button>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 80,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+        },
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    $('#example_5').flowchart({
+      data: data
+    });
+    
+    var operatorI = 0;
+    $('#create_operator').click(function() {
+      var operatorId = 'created_operator_' + operatorI;
+      var operatorData = {
+        top: 60,
+        left: 500,
+        properties: {
+          title: 'Operator ' + (operatorI + 3),
+          inputs: {
+            input_1: {
+              label: 'Input 1',
+            }
+          },
+          outputs: {
+            output_1: {
+              label: 'Output 1',
+            }
+          }
+        }
+      };
+      
+      operatorI++;
+      
+      $('#example_5').flowchart('createOperator', operatorId, operatorData);
+    });
+    
+    $('#delete_selected_button').click(function() {
+      $('#example_5').flowchart('deleteSelected');
+    });
+  });
+</script>
+  <p class="flowchart-example-description">Two buttons have been added allowing to dynamically create operators and delete the selected item.</p>
+</div>
+          
+          
+
+          
+          
+          
+<div class="flowchart-example">
+  <h4>Callbacks</h4>
+  <div class="flowchart-example-container" id="example_6"></div>
+  <button id="create_operator_6">Create operator</button>
+  <button id="delete_selected_button_6">Delete selected operator / link</button>
+  <div class="flowchart-example-event" id="last_event_example_container_6">Last events: <pre id="last_event_example_6"></pre></div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 80,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+        },
+      }
+    };
+
+    var $lastEvent = $('#last_event_example_6');
+    var $lastEventContainer = $('#last_event_example_container_6');
+    
+    var $example = $('#example_6');
+    
+    function showEvent(txt) {
+      $lastEvent.text(txt + "\n" + $lastEvent.text());
+      $lastEventContainer.effect( "highlight", {color: '#3366ff'}, 500);
+    }
+    
+    // Apply the plugin on a standard, empty div...
+    $example.flowchart({
+      data: data,
+      onOperatorSelect: function(operatorId) {
+        showEvent('Operator "' + operatorId + '" selected. Title: ' + $example.flowchart('getOperatorTitle', operatorId) + '.');
+        return true;
+      },
+      onOperatorUnselect: function() {
+        showEvent('Operator unselected.');
+        return true;
+      },
+      onLinkSelect: function(linkId) {
+        showEvent('Link "' + linkId + '" selected. Main color: ' + $example.flowchart('getLinkMainColor', linkId) + '.');
+        return true;
+      },
+      onLinkUnselect: function() {
+        showEvent('Link unselected.');
+        return true;
+      },
+      onOperatorCreate: function(operatorId, operatorData, fullElement) {
+        showEvent('New operator created. Operator ID: "' + operatorId + '", operator title: "' + operatorData.properties.title + '".');
+        return true;
+      },
+      onLinkCreate: function(linkId, linkData) {
+        showEvent('New link created. Link ID: "' + linkId + '", link color: "' + linkData.color + '".');
+        return true;
+      },
+      onOperatorDelete: function(operatorId) {
+        showEvent('Operator deleted. Operator ID: "' + operatorId + '", operator title: "' + $example.flowchart('getOperatorTitle', operatorId) + '".');
+        return true;
+      },
+      onLinkDelete: function(linkId, forced) {
+        showEvent('Link deleted. Link ID: "' + linkId + '", link color: "' + $example.flowchart('getLinkMainColor', linkId) + '".');
+        return true;
+      }
+    });
+    
+    
+    
+    
+    var operatorI = 0;
+    $('#create_operator_6').click(function() {
+      var operatorId = 'created_operator_' + operatorI;
+      var operatorData = {
+        top: 60,
+        left: 500,
+        properties: {
+          title: 'Operator ' + (operatorI + 3),
+          inputs: {
+            input_1: {
+              label: 'Input 1',
+            }
+          },
+          outputs: {
+            output_1: {
+              label: 'Output 1',
+            }
+          }
+        }
+      };
+      
+      operatorI++;
+      
+      $example.flowchart('createOperator', operatorId, operatorData);
+    });
+    
+    $('#delete_selected_button_6').click(function() {
+      $example.flowchart('deleteSelected');
+    });
+  });
+</script>
+  <p class="flowchart-example-description">Showing events triggered.</p>
 </div>
 
 </section>
