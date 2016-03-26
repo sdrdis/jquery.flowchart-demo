@@ -303,8 +303,8 @@ Here are the main functionalities provided so far:
 <div class="flowchart-example">
   <h4>Dynamically add operators and delete operators / links</h4>
   <div class="flowchart-example-container" id="example_5"></div>
-  <button id="create_operator">Create operator</button>
-  <button id="delete_selected_button">Delete selected operator / link</button>
+  <button class="create_operator">Create operator</button>
+  <button class="delete_selected_button">Delete selected operator / link</button>
 <script type="text/javascript">
   $(document).ready(function() {
     var data = {
@@ -350,12 +350,13 @@ Here are the main functionalities provided so far:
     };
 
     // Apply the plugin on a standard, empty div...
-    $('#example_5').flowchart({
+    var $flowchart = $('#example_5');
+    $flowchart.flowchart({
       data: data
     });
     
     var operatorI = 0;
-    $('#create_operator').click(function() {
+    $flowchart.siblings('.create_operator').click(function() {
       var operatorId = 'created_operator_' + operatorI;
       var operatorData = {
         top: 60,
@@ -377,11 +378,11 @@ Here are the main functionalities provided so far:
       
       operatorI++;
       
-      $('#example_5').flowchart('createOperator', operatorId, operatorData);
+      $flowchart.flowchart('createOperator', operatorId, operatorData);
     });
     
-    $('#delete_selected_button').click(function() {
-      $('#example_5').flowchart('deleteSelected');
+    $flowchart.siblings('.delete_selected_button').click(function() {
+      $flowchart.flowchart('deleteSelected');
     });
   });
 </script>
@@ -396,8 +397,8 @@ Here are the main functionalities provided so far:
 <div class="flowchart-example">
   <h4>Callbacks</h4>
   <div class="flowchart-example-container" id="example_6"></div>
-  <button id="create_operator_6">Create operator</button>
-  <button id="delete_selected_button_6">Delete selected operator / link</button>
+  <button class="create_operator">Create operator</button>
+  <button class="delete_selected_button">Delete selected operator / link</button>
   <div class="flowchart-example-event" id="last_event_example_container_6">Last events: <pre id="last_event_example_6"></pre></div>
 <script type="text/javascript">
   $(document).ready(function() {
@@ -446,7 +447,7 @@ Here are the main functionalities provided so far:
     var $lastEvent = $('#last_event_example_6');
     var $lastEventContainer = $('#last_event_example_container_6');
     
-    var $example = $('#example_6');
+    var $flowchart = $('#example_6');
     
     function showEvent(txt) {
       $lastEvent.text(txt + "\n" + $lastEvent.text());
@@ -454,10 +455,10 @@ Here are the main functionalities provided so far:
     }
     
     // Apply the plugin on a standard, empty div...
-    $example.flowchart({
+    $flowchart.flowchart({
       data: data,
       onOperatorSelect: function(operatorId) {
-        showEvent('Operator "' + operatorId + '" selected. Title: ' + $example.flowchart('getOperatorTitle', operatorId) + '.');
+        showEvent('Operator "' + operatorId + '" selected. Title: ' + $flowchart.flowchart('getOperatorTitle', operatorId) + '.');
         return true;
       },
       onOperatorUnselect: function() {
@@ -465,7 +466,7 @@ Here are the main functionalities provided so far:
         return true;
       },
       onLinkSelect: function(linkId) {
-        showEvent('Link "' + linkId + '" selected. Main color: ' + $example.flowchart('getLinkMainColor', linkId) + '.');
+        showEvent('Link "' + linkId + '" selected. Main color: ' + $flowchart.flowchart('getLinkMainColor', linkId) + '.');
         return true;
       },
       onLinkUnselect: function() {
@@ -481,11 +482,11 @@ Here are the main functionalities provided so far:
         return true;
       },
       onOperatorDelete: function(operatorId) {
-        showEvent('Operator deleted. Operator ID: "' + operatorId + '", operator title: "' + $example.flowchart('getOperatorTitle', operatorId) + '".');
+        showEvent('Operator deleted. Operator ID: "' + operatorId + '", operator title: "' + $flowchart.flowchart('getOperatorTitle', operatorId) + '".');
         return true;
       },
       onLinkDelete: function(linkId, forced) {
-        showEvent('Link deleted. Link ID: "' + linkId + '", link color: "' + $example.flowchart('getLinkMainColor', linkId) + '".');
+        showEvent('Link deleted. Link ID: "' + linkId + '", link color: "' + $flowchart.flowchart('getLinkMainColor', linkId) + '".');
         return true;
       }
     });
@@ -494,7 +495,7 @@ Here are the main functionalities provided so far:
     
     
     var operatorI = 0;
-    $('#create_operator_6').click(function() {
+    $flowchart.siblings('.create_operator').click(function() {
       var operatorId = 'created_operator_' + operatorI;
       var operatorData = {
         top: 60,
@@ -516,15 +517,285 @@ Here are the main functionalities provided so far:
       
       operatorI++;
       
-      $example.flowchart('createOperator', operatorId, operatorData);
+      $flowchart.flowchart('createOperator', operatorId, operatorData);
     });
     
-    $('#delete_selected_button_6').click(function() {
-      $example.flowchart('deleteSelected');
+    $flowchart.siblings('.delete_selected_button').click(function() {
+      $flowchart.flowchart('deleteSelected');
     });
   });
 </script>
   <p class="flowchart-example-description">Showing events triggered.</p>
+</div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+<div class="flowchart-example">
+  <h4>Get / set flowchart data</h4>
+  <div class="flowchart-example-container" id="example_7"></div>
+  <button class="create_operator">Create operator</button>
+  <button class="delete_selected_button">Delete selected operator / link</button>
+  <button class="get_data">Get data</button>
+  <button class="set_data">Set data</button>
+  <div>
+    <textarea id="flowchart_data"></textarea>
+  </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 80,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+        },
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    var $flowchart = $('#example_7');
+    $flowchart.flowchart({
+      data: data
+    });
+    
+    var operatorI = 0;
+    $flowchart.siblings('.create_operator').click(function() {
+      var operatorId = 'created_operator_' + operatorI;
+      var operatorData = {
+        top: 60,
+        left: 500,
+        properties: {
+          title: 'Operator ' + (operatorI + 3),
+          inputs: {
+            input_1: {
+              label: 'Input 1',
+            }
+          },
+          outputs: {
+            output_1: {
+              label: 'Output 1',
+            }
+          }
+        }
+      };
+      
+      operatorI++;
+      
+      $flowchart.flowchart('createOperator', operatorId, operatorData);
+    });
+    
+    $flowchart.siblings('.delete_selected_button').click(function() {
+      $flowchart.flowchart('deleteSelected');
+    });
+    
+    $flowchart.siblings('.get_data').click(function() {
+      var data = $flowchart.flowchart('getData');
+      $('#flowchart_data').val(JSON.stringify(data, null, 2));
+    });
+    
+    $flowchart.siblings('.set_data').click(function() {
+      var data = JSON.parse($('#flowchart_data').val());
+      $flowchart.flowchart('setData', data);
+    });
+  });
+</script>
+  <p class="flowchart-example-description">In addition to the create and delete buttons, two buttons has been added allowing you to get and set the flowchart's data.</p>
+</div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+<div class="flowchart-example">
+  <h4>Rename operator / change link color</h4>
+  <div class="flowchart-example-container" id="example_8"></div>
+  <button class="create_operator">Create operator</button>
+  <button class="delete_selected_button">Delete selected operator / link</button>
+  <div id="operator_properties">
+    <label for="operator_title">Operator's title: </label><input type="text" id="operator_title" />
+  </div>
+  <div id="link_properties">
+    <label for="link_color">Link's color: </label><input type="color" id="link_color" />
+  </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 80,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+        },
+      }
+    };
+    
+    var $operatorProperties = $('#operator_properties');
+    var $linkProperties = $('#link_properties');
+    var $operatorTitle = $('#operator_title');
+    var $linkColor = $('#link_color');
+
+    // Apply the plugin on a standard, empty div...
+    var $flowchart = $('#example_8');
+    $flowchart.flowchart({
+      data: data,
+      onOperatorSelect: function(operatorId) {
+        $operatorProperties.show();
+        $operatorTitle.val($flowchart.flowchart('getOperatorTitle', operatorId));
+        return true;
+      },
+      onOperatorUnselect: function() {
+        $operatorProperties.hide();
+        return true;
+      },
+      onLinkSelect: function(linkId) {
+        $linkProperties.show();
+        $linkColor.val($flowchart.flowchart('getLinkMainColor', linkId));
+        return true;
+      },
+      onLinkUnselect: function() {
+        $linkProperties.hide();
+        return true;
+      }
+    });
+    
+    $operatorTitle.keyup(function() {
+      var selectedOperatorId = $flowchart.flowchart('getSelectedOperatorId');
+      if (selectedOperatorId != null) {
+        $flowchart.flowchart('setOperatorTitle', selectedOperatorId, $operatorTitle.val());
+      }
+    });
+    
+    $linkColor.change(function() {
+      var selectedLinkId = $flowchart.flowchart('getSelectedLinkId');
+      if (selectedLinkId != null) {
+        $flowchart.flowchart('setLinkMainColor', selectedLinkId, $linkColor.val());
+      }
+    });
+    
+    var operatorI = 0;
+    $flowchart.siblings('.create_operator').click(function() {
+      var operatorId = 'created_operator_' + operatorI;
+      var operatorData = {
+        top: 60,
+        left: 500,
+        properties: {
+          title: 'Operator ' + (operatorI + 3),
+          inputs: {
+            input_1: {
+              label: 'Input 1',
+            }
+          },
+          outputs: {
+            output_1: {
+              label: 'Output 1',
+            }
+          }
+        }
+      };
+      
+      operatorI++;
+      
+      $flowchart.flowchart('createOperator', operatorId, operatorData);
+    });
+    
+    $flowchart.siblings('.delete_selected_button').click(function() {
+      $flowchart.flowchart('deleteSelected');
+    });
+    
+    $flowchart.siblings('.get_data').click(function() {
+      var data = $flowchart.flowchart('getData');
+      $('#flowchart_data').val(JSON.stringify(data, null, 2));
+    });
+    
+    $flowchart.siblings('.set_data').click(function() {
+      var data = JSON.parse($('#flowchart_data').val());
+      $flowchart.flowchart('setData', data);
+    });
+  });
+</script>
+  <p class="flowchart-example-description">In addition to the create and delete buttons, two buttons has been added allowing you to get and set the flowchart's data.</p>
 </div>
 
 </section>
