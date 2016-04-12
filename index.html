@@ -489,7 +489,7 @@ Here are the main functionalities provided so far:
         showEvent('Link deleted. Link ID: "' + linkId + '", link color: "' + $flowchart.flowchart('getLinkMainColor', linkId) + '".');
         return true;
       },
-      onOperatorMove: function(operatorId, position) {
+      onOperatorMoved: function(operatorId, position) {
         showEvent('Operator moved. Operator ID: "' + operatorId + ', position: ' + JSON.stringify(position) + '.');
       }
     });
