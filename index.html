@@ -391,6 +391,72 @@ Here are the main functionalities provided so far:
           
           
 
+
+          
+<div class="flowchart-example" id="multiple">
+  <h4>Multiple connectors</h4>
+  <div class="flowchart-example-container" id="example_multiple"></div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              outs: {
+                label: 'Output (:i)',
+                multiple: true
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 20,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              ins: {
+                label: 'Input (:i)',
+                multiple: true
+              }
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'outs',
+          fromSubConnector: 0,
+          toOperator: 'operator2',
+          toConnector: 'ins',
+          toSubConnector: 0
+        },
+        link_2: {
+          fromOperator: 'operator1',
+          fromConnector: 'outs',
+          fromSubConnector: 1,
+          toOperator: 'operator2',
+          toConnector: 'ins',
+          toSubConnector: 1
+        }
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    $('#example_multiple').flowchart({
+      data: data
+    });
+  });
+</script>
+  <p class="flowchart-example-description">When a link is added on a multiple connector, another connector (called subconnector) will be dynamically created.</p>
+</div>
           
           
           
