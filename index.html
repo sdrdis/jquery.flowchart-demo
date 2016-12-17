@@ -1011,6 +1011,11 @@ Here are the main functionalities provided so far:
     $draggableOperators.draggable({
         cursor: "move",
         opacity: 0.7,
+        
+        helper: 'clone', 
+        appendTo: 'body',
+        zIndex: 1000,
+        
         helper: function(e) {
           var $this = $(this);
           var data = getOperatorData($this);
