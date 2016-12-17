@@ -1037,8 +1037,8 @@ Here are the main functionalities provided so far:
                 var data = getOperatorData($this);
                 data.left = relativeLeft;
                 data.top = relativeTop;
-                $flowchart.flowchart('createOperator', 'op_' + operatorId, data);
-                operatorId++;
+                
+                $flowchart.flowchart('addOperator', data);
             }
         }
     });
