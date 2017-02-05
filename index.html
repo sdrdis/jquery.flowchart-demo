@@ -16,6 +16,7 @@
     <script src="jquery-mousewheel/jquery.mousewheel.min.js"></script>
     
     <script src="jquery.flowchart/jquery.flowchart.js"></script>
+    <script src="plugins/jquery.fc.restrictions.js"></script>
     <script src="javascripts/main.js"></script>
     <link rel="stylesheet" href="jquery.flowchart/jquery.flowchart.min.css">
     <link rel="stylesheet" href="stylesheets/custom.css">
@@ -104,6 +105,7 @@ Here are the main functionalities provided so far:
         }
       }
     };
+      
 
     // Apply the plugin on a standard, empty div...
     $('#example_1').flowchart({
@@ -219,6 +221,18 @@ Here are the main functionalities provided so far:
       }
     };
 
+      
+    $('#example_3').flowchartRestrictions(
+      [
+        {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+          color: '#FF0000'
+        }
+      ]
+    );
     // Apply the plugin on a standard, empty div...
     $('#example_3').flowchart({
       data: data
