@@ -227,6 +227,67 @@ Here are the main functionalities provided so far:
 </script>
   <p class="flowchart-example-description">Here, a link has been added during the initialization. You can still remove it if you create a link from "Output 1" using the interface.</p>
 </div>
+
+
+
+
+
+<div class="flowchart-example">
+  <h4>Create vertical flow chart</h4>
+  <div class="flowchart-example-container" id="example_3_vertical" style="height:500px"></div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 100,
+          left: 260,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 320,
+          left: 260,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      },
+      links: {
+        link_1: {
+          fromOperator: 'operator1',
+          fromConnector: 'output_1',
+          toOperator: 'operator2',
+          toConnector: 'input_2',
+        },
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    $('#example_3_vertical').flowchart({
+      verticalConnection: true,
+      data: data
+    });
+  });
+</script>
+  <p class="flowchart-example-description">The flowchart can also be displayed vertically.</p>
+</div>
           
           
           
